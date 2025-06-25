@@ -19,6 +19,9 @@ build:
     # Установка LLaVA как пакета
     - pip install --no-cache-dir "git+https://github.com/haotian-liu/LLaVA.git"
     
+    # Принудительная установка совместимых версий для Cog
+    - pip install --force-reinstall "pydantic>=1.9,<2.0" "fastapi>=0.75.2,<0.99.0" "attrs>=20.1,<24"
+    
     # Установка pget для загрузки файлов
     - curl -o /usr/local/bin/pget -L "https://github.com/replicate/pget/releases/download/v0.8.2/pget_linux_x86_64" && chmod +x /usr/local/bin/pget
     

@@ -1,3 +1,8 @@
+# Cog compatibility - ВАЖНЫЕ ОГРАНИЧЕНИЯ ВЕРСИЙ
+pydantic>=1.9,<2.0  # Cog требует pydantic<2
+fastapi>=0.75.2,<0.99.0  # Cog требует fastapi<0.99.0
+attrs>=20.1,<24  # Cog требует attrs<24
+
 # Core ML libraries
 torch==2.4.1
 torchvision==0.19.1
@@ -29,8 +34,7 @@ einops==0.8.0
 controlnet_aux==0.0.7
 lpips==0.1.4
 
-# Utilities
-pydantic==1.10.17
+# Utilities (обновленные для совместимости)
 pyyaml==6.0.1
 oyaml==1.0
 toml==0.10.2
@@ -49,12 +53,12 @@ wandb==0.17.8
 # LLaVA dependencies (только если нужны)
 deepspeed==0.9.5
 einops-exts==0.0.4
-gradio==3.35.2
-gradio_client==0.2.9
+gradio>=3.35.2,<4.0  # Ограничение для совместимости
+gradio_client>=0.2.9,<1.0  # Ограничение для совместимости
 httpx==0.24.0
 markdown2==2.4.10
-numpy==1.26.0
+numpy>=1.26.0,<2.0  # Избегаем numpy 2.0 проблем
 shortuuid==1.0.11
-tokenizers==0.19
+tokenizers>=0.19,<0.20
 wavedrom==2.0.3.post3
 Pygments==2.16.1 
