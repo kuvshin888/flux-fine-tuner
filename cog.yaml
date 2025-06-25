@@ -28,6 +28,11 @@ build:
     # Принудительная переустановка совместимых версий для Cog (ВАЖНО: в конце!)
     - pip install --force-reinstall "pydantic>=1.9,<2.0" "fastapi>=0.75.2,<0.99.0" "attrs>=20.1,<24"
     
+    # Добавление ai-toolkit в Python PATH для доступа к extensions_built_in
+    - echo 'export PYTHONPATH="${PYTHONPATH}:/src/ai-toolkit"' >> /root/.bashrc
+    - echo 'export PYTHONPATH="${PYTHONPATH}:/src/ai-toolkit"' >> /etc/environment
+    - echo '/src/ai-toolkit' > $(python -c "import site; print(site.getsitepackages()[0])")/ai-toolkit.pth
+    
     # Установка pget для загрузки файлов
     - curl -o /usr/local/bin/pget -L "https://github.com/replicate/pget/releases/download/v0.8.2/pget_linux_x86_64" && chmod +x /usr/local/bin/pget
     
