@@ -10,6 +10,12 @@ build:
   python_version: "3.10"
   python_requirements: "requirements.txt"
   run:
+    # Установка LLaVA из GitHub
+    - pip install --no-cache-dir "git+https://github.com/haotian-liu/LLaVA.git"
+    
+    # Установка ai-toolkit из GitHub
+    - pip install --no-cache-dir "git+https://github.com/ostris/ai-toolkit.git"
+    
     # Установка pget для загрузки файлов
     - curl -o /usr/local/bin/pget -L "https://github.com/replicate/pget/releases/download/v0.8.2/pget_linux_x86_64" && chmod +x /usr/local/bin/pget
     
