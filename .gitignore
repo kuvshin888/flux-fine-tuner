@@ -186,4 +186,4 @@ input_images/
 safety-cache/
 falcon-cache/
 output/
-weights-cache/
+weights-cache/*.backup
