@@ -22,6 +22,14 @@ from string import Template
 
 import torch
 from cog import BaseModel, Input, Path, Secret  # pyright: ignore
+
+# Добавляем ai-toolkit в Python PATH для доступа к extensions_built_in
+import sys
+import os
+ai_toolkit_path = os.path.join(os.path.dirname(__file__), "ai-toolkit")
+if ai_toolkit_path not in sys.path:
+    sys.path.append(ai_toolkit_path)
+
 from extensions_built_in.sd_trainer.SDTrainer import SDTrainer
 from huggingface_hub import HfApi
 from jobs import BaseJob
