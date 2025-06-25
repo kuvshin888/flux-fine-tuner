@@ -17,10 +17,7 @@ build:
     - cd ai-toolkit && git submodule update --init --recursive
     
     # Установка зависимостей ai-toolkit (если есть requirements.txt)
-    - cd ai-toolkit && if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    
-    # Возвращаемся в рабочую директорию
-    - cd /src
+    - cd ai-toolkit && if [ -f requirements.txt ]; then pip install -r requirements.txt; fi && cd ..
     
     # Клонирование LLaVA для локальных файлов (если нужно)
     - git clone https://github.com/haotian-liu/LLaVA.git LLaVA
@@ -28,7 +25,7 @@ build:
     # Установка LLaVA как пакета
     - pip install --no-cache-dir "git+https://github.com/haotian-liu/LLaVA.git"
     
-    # Принудительная установка совместимых версий для Cog
+    # Принудительная переустановка совместимых версий для Cog (ВАЖНО: в конце!)
     - pip install --force-reinstall "pydantic>=1.9,<2.0" "fastapi>=0.75.2,<0.99.0" "attrs>=20.1,<24"
     
     # Установка pget для загрузки файлов
