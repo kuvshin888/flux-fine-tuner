@@ -23,28 +23,31 @@ from string import Template
 import torch
 from cog import BaseModel, Input, Path, Secret  # pyright: ignore
 
-# Добавляем ai-toolkit в Python PATH для доступа к extensions_built_in
-import sys
-import os
-ai_toolkit_path = os.path.join(os.path.dirname(__file__), "ai-toolkit")
-if ai_toolkit_path not in sys.path:
-    sys.path.append(ai_toolkit_path)
-
-# Дополнительно проверим и добавим абсолютный путь
-abs_ai_toolkit_path = os.path.abspath(ai_toolkit_path)
-if abs_ai_toolkit_path not in sys.path:
-    sys.path.append(abs_ai_toolkit_path)
-
-# Также добавим /src/ai-toolkit на случай если мы в контейнере
-src_ai_toolkit_path = "/src/ai-toolkit"
-if src_ai_toolkit_path not in sys.path:
-    sys.path.append(src_ai_toolkit_path)
-
-print(f"Python path includes: {sys.path}")
-print(f"Looking for ai-toolkit at: {ai_toolkit_path}, exists: {os.path.exists(ai_toolkit_path)}")
-print(f"Looking for extensions_built_in at: {os.path.join(ai_toolkit_path, 'extensions_built_in')}, exists: {os.path.exists(os.path.join(ai_toolkit_path, 'extensions_built_in'))}")
-
-from extensions_built_in.sd_trainer.SDTrainer import SDTrainer
+# ai-toolkit теперь установлен как пакет в editable режиме
+try:
+    from extensions_built_in.sd_trainer.SDTrainer import SDTrainer
+    print("✅ Успешно импортирован SDTrainer из ai-toolkit")
+except ImportError as e:
+    print(f"❌ Ошибка импорта SDTrainer: {e}")
+    # Fallback: попробуем добавить пути вручную
+    import sys
+    import os
+    
+    ai_toolkit_paths = [
+        os.path.join(os.path.dirname(__file__), "ai-toolkit"),
+        "/src/ai-toolkit"
+    ]
+    
+    for path in ai_toolkit_paths:
+        if os.path.exists(path) and path not in sys.path:
+            sys.path.append(path)
+            print(f"📂 Добавлен путь: {path}")
+    
+    print(f"🔍 Текущие пути Python: {[p for p in sys.path if 'ai-toolkit' in p]}")
+    
+    # Попробуем еще раз
+    from extensions_built_in.sd_trainer.SDTrainer import SDTrainer
+    print("✅ Импорт SDTrainer успешен после добавления путей")
 from huggingface_hub import HfApi
 from jobs import BaseJob
 from toolkit.config import get_config
