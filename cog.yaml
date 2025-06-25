@@ -10,8 +10,17 @@ build:
   python_version: "3.10"
   python_requirements: "requirements.txt"
   run:
-    # Клонирование ai-toolkit в нужную папку
-    - git clone https://github.com/ostris/ai-toolkit.git ai-toolkit
+    # Клонирование ai-toolkit с рекурсивными субмодулями
+    - git clone --recursive https://github.com/ostris/ai-toolkit.git ai-toolkit
+    
+    # Убеждаемся что все субмодули ai-toolkit инициализированы
+    - cd ai-toolkit && git submodule update --init --recursive
+    
+    # Установка зависимостей ai-toolkit (если есть requirements.txt)
+    - cd ai-toolkit && if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    
+    # Возвращаемся в рабочую директорию
+    - cd /src
     
     # Клонирование LLaVA для локальных файлов (если нужно)
     - git clone https://github.com/haotian-liu/LLaVA.git LLaVA
