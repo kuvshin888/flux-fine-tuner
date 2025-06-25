@@ -1,6 +1,9 @@
 # Configuration for Cog ⚙️
 # Reference: https://cog.run/yaml
 
+# Автоматическое имя для деплоя на Replicate
+image: "r8.im/kuvshin888/flux-fine-tuner-init-lora"
+
 build:
   gpu: true
   cuda: "12.4"
