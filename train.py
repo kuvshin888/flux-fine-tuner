@@ -30,6 +30,20 @@ ai_toolkit_path = os.path.join(os.path.dirname(__file__), "ai-toolkit")
 if ai_toolkit_path not in sys.path:
     sys.path.append(ai_toolkit_path)
 
+# Дополнительно проверим и добавим абсолютный путь
+abs_ai_toolkit_path = os.path.abspath(ai_toolkit_path)
+if abs_ai_toolkit_path not in sys.path:
+    sys.path.append(abs_ai_toolkit_path)
+
+# Также добавим /src/ai-toolkit на случай если мы в контейнере
+src_ai_toolkit_path = "/src/ai-toolkit"
+if src_ai_toolkit_path not in sys.path:
+    sys.path.append(src_ai_toolkit_path)
+
+print(f"Python path includes: {sys.path}")
+print(f"Looking for ai-toolkit at: {ai_toolkit_path}, exists: {os.path.exists(ai_toolkit_path)}")
+print(f"Looking for extensions_built_in at: {os.path.join(ai_toolkit_path, 'extensions_built_in')}, exists: {os.path.exists(os.path.join(ai_toolkit_path, 'extensions_built_in'))}")
+
 from extensions_built_in.sd_trainer.SDTrainer import SDTrainer
 from huggingface_hub import HfApi
 from jobs import BaseJob
